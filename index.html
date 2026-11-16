@@ -1,0 +1,287 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Ramesh M Portfolio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap">
+<style>
+/* Layout: single column "analyst's notebook": hero with a query-result profile card, then ruled sections with a left label rail on wide screens. */
+:root{color-scheme:light;
+  --bg:#F4F7F8; --surface:#FFFFFF; --fg:#13202A; --muted:#566673; --line:#D5DFE3; --accent:#0B6E66; --accent-ink:#FFFFFF; --tag:#E3F0EE; --grid:#E4ECEF; --grid-strong:#C3D4DA;
+  --font-display:"Space Grotesk","Helvetica Neue",Arial,sans-serif;
+  --font-body:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+
+*{box-sizing:border-box}
+body{background-color:var(--bg);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:32px 32px;color:var(--fg);font-family:var(--font-body);font-size:16px;line-height:1.6;padding-block:0;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:960px;margin:0 auto}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+
+nav{display:flex;flex-wrap:wrap;gap:8px 22px;padding-block:20px;font-family:var(--font-mono);font-size:13px}
+nav a{color:var(--muted);text-decoration:none}
+nav a:hover{color:var(--accent)}
+
+.hero{position:relative;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:40px;align-items:center;padding-block:48px 56px}
+.hero>div{position:relative;z-index:1}
+.hero-chart{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.hero-chart .bar{fill:var(--grid)}
+.hero-chart .ln{fill:none;stroke:var(--grid-strong);stroke-width:2;vector-effect:non-scaling-stroke}
+.shot{margin:18px 0 0;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--surface)}
+.shot img{display:block;width:100%;height:auto}
+.shot figcaption{font-family:var(--font-mono);font-size:12.5px;color:var(--muted);padding:10px 14px;border-top:1px solid var(--line)}
+.findings{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:16px 0 0;padding:0;list-style:none}
+.findings li{border:1px solid var(--line);border-radius:6px;padding:10px 12px;background:var(--surface);font-size:14px;line-height:1.4}
+.findings b{display:block;font-family:var(--font-mono);font-size:18px;font-weight:500;color:var(--accent)}
+.eyebrow{font-family:var(--font-mono);font-size:13px;color:var(--accent);letter-spacing:.06em;text-transform:uppercase}
+h1{font-family:var(--font-display);font-weight:700;font-size:clamp(40px,7vw,68px);line-height:1.02;margin:10px 0 16px;letter-spacing:-.02em;text-wrap:balance}
+.lede{font-size:18px;color:var(--muted);max-width:52ch;margin:0 0 26px}
+.actions{display:flex;flex-wrap:wrap;gap:12px}
+.btn{font:500 15px var(--font-body);padding:11px 18px;border-radius:6px;border:1px solid var(--line);background:var(--surface);color:var(--fg);text-decoration:none;cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn:hover{border-color:var(--accent)}
+
+.query{background:var(--surface);border:1px solid var(--line);border-radius:8px;overflow:hidden;min-width:0}
+.query .sql{font-family:var(--font-mono);font-size:13px;padding:12px 16px;border-bottom:1px solid var(--line);color:var(--muted)}
+.query .sql b{color:var(--accent);font-weight:500}
+.rows{display:grid;grid-template-columns:auto minmax(0,1fr);font-family:var(--font-mono);font-size:13px}
+.rows span{padding:9px 16px;border-bottom:1px solid var(--line);min-width:0;overflow-wrap:anywhere}
+.rows span:nth-child(odd){color:var(--muted);border-right:1px solid var(--line)}
+.rows span:nth-last-child(-n+2){border-bottom:0}
+
+section{display:grid;grid-template-columns:150px minmax(0,1fr);gap:12px 32px;padding-block:36px;border-top:1px solid var(--line)}
+section>h2{font-family:var(--font-mono);font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:6px 0 0}
+.content{min-width:0;display:grid;gap:28px}
+h3{font-family:var(--font-display);font-size:22px;line-height:1.25;margin:0 0 4px;text-wrap:balance}
+.meta{font-family:var(--font-mono);font-size:13px;color:var(--muted);margin:0 0 12px}
+ul.points{margin:0;padding-left:20px}
+ul.points li{margin-bottom:6px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0;padding:0;list-style:none}
+.tags li{font-family:var(--font-mono);font-size:12.5px;background:var(--tag);color:var(--fg);padding:3px 10px;border-radius:4px}
+
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px}
+.skills h3{font-size:15px;font-family:var(--font-mono);font-weight:500;color:var(--accent);letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px}
+.skills ul{list-style:none;margin:0;padding:0}
+.skills li{padding:5px 0;border-bottom:1px solid var(--line)}
+
+.edu{display:grid;gap:4px}
+.edu .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 16px}
+.edu strong{font-weight:600}
+.cgpa{font-family:var(--font-mono);font-size:13px;color:var(--accent)}
+
+.contact-list{display:grid;gap:12px;font-family:var(--font-mono);font-size:15px}
+.contact-list div{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
+.contact-list .k{color:var(--muted);min-width:80px}
+.contact-list .v{overflow-wrap:anywhere;user-select:all}
+.copy{font:500 12px var(--font-mono);padding:3px 10px;border-radius:4px;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer}
+.copy:hover{border-color:var(--accent)}
+
+footer{border-top:1px solid var(--line);padding-block:24px 40px;font-family:var(--font-mono);font-size:12.5px;color:var(--muted)}
+
+@media (max-width:760px){
+  .hero{grid-template-columns:minmax(0,1fr);padding-block:28px 40px}
+  section{grid-template-columns:minmax(0,1fr);gap:16px}
+  section>h2{margin:0}
+}
+@media (prefers-reduced-motion:no-preference){.btn,.copy,nav a{transition:border-color .15s,color .15s}}
+
+/* Colourful analytics backdrop: gradient + chart shapes behind a white content card */
+body{background-color:#2a3bb0;background-image:linear-gradient(135deg,#2563eb 0%,#7c3aed 38%,#ec4899 72%,#f59e0b 100%);background-size:cover;background-attachment:fixed}
+.bg-art{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.wrap{position:relative;z-index:1;background:rgba(255,255,255,.94);border-radius:16px;margin-block:20px 28px;padding-inline:clamp(18px,4vw,40px);box-shadow:0 12px 44px rgba(20,10,70,.38)}
+.hero-chart .bar{fill:#DCEBFA}
+.hero-chart .ln{stroke:#7c3aed}
+
+/* Open layout: no white card. Text sits on translucent glass panels so the colourful backdrop stays visible */
+:root{--fg:#FFFFFF;--muted:rgba(255,255,255,.82);--line:rgba(255,255,255,.28);--surface:rgba(255,255,255,.12);--accent:#FDE047;--accent-ink:#2B1B00;--tag:rgba(255,255,255,.2);--glass:rgba(22,12,64,.42)}
+body{background-image:linear-gradient(135deg,#1d4ed8 0%,#6d28d9 38%,#be185d 72%,#ea580c 100%)}
+.wrap{background:none;box-shadow:none;border-radius:0;padding-inline:0;margin-block:8px 28px}
+.hero,section{background:var(--glass);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border:1px solid var(--line);border-radius:16px;margin-bottom:20px;padding-inline:clamp(18px,3.5vw,36px)}
+section{padding-block:30px}
+.hero{overflow:hidden}
+.hero-chart .bar{fill:rgba(255,255,255,.10)}
+.hero-chart .ln{stroke:rgba(255,255,255,.45)}
+.query{background:rgba(255,255,255,.12)}
+.btn{background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.4)}
+.btn.primary{background:#FDE047;border-color:#FDE047;color:#2B1B00}
+.copy{background:rgba(255,255,255,.14);color:#fff}
+.shot{background:#fff}
+.findings li{background:rgba(255,255,255,.12);color:#fff}
+a{color:#FDE047}
+nav{padding-inline:4px}
+footer{border-top:0;color:rgba(255,255,255,.85);text-align:center}
+</style>
+
+<svg class="bg-art" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+  <g opacity=".55">
+    <rect x="30" y="560" width="46" height="240" fill="#22d3ee"/><rect x="90" y="480" width="46" height="320" fill="#facc15"/>
+    <rect x="150" y="520" width="46" height="280" fill="#34d399"/><rect x="210" y="410" width="46" height="390" fill="#fb7185"/>
+    <rect x="270" y="450" width="46" height="350" fill="#ffffff"/>
+    <rect x="900" y="600" width="46" height="200" fill="#ffffff"/><rect x="960" y="520" width="46" height="280" fill="#22d3ee"/>
+    <rect x="1020" y="440" width="46" height="360" fill="#facc15"/><rect x="1080" y="360" width="46" height="440" fill="#34d399"/>
+    <rect x="1140" y="300" width="46" height="500" fill="#fb7185"/>
+  </g>
+  <g opacity=".6" fill="none" stroke-width="10" transform="rotate(-90 1040 130)">
+    <circle cx="1040" cy="130" r="70" stroke="#ffffff" stroke-opacity=".35"/>
+    <circle cx="1040" cy="130" r="70" stroke="#facc15" stroke-dasharray="190 440"/>
+    <circle cx="1040" cy="130" r="70" stroke="#22d3ee" stroke-dasharray="110 440" stroke-dashoffset="-200"/>
+  </g>
+  <g opacity=".6" fill="none" stroke="#ffffff" stroke-width="5" stroke-linejoin="round">
+    <polyline points="40,260 130,190 220,230 310,130 400,170 490,70"/>
+  </g>
+  <g opacity=".7" fill="#ffffff"><circle cx="40" cy="260" r="9"/><circle cx="130" cy="190" r="9"/><circle cx="220" cy="230" r="9"/><circle cx="310" cy="130" r="9"/><circle cx="400" cy="170" r="9"/><circle cx="490" cy="70" r="9"/></g>
+  <g opacity=".45"><circle cx="760" cy="90" r="14" fill="#22d3ee"/><circle cx="820" cy="150" r="9" fill="#facc15"/><circle cx="700" cy="170" r="11" fill="#34d399"/><circle cx="880" cy="60" r="8" fill="#ffffff"/><circle cx="600" cy="740" r="16" fill="#fb7185"/><circle cx="680" cy="700" r="9" fill="#ffffff"/><circle cx="540" cy="690" r="11" fill="#22d3ee"/></g>
+</svg>
+<div class="wrap">
+  <nav aria-label="Sections">
+    <a href="#projects">projects</a>
+    <a href="#skills">skills</a>
+    <a href="#experience">experience</a>
+    <a href="#education">education</a>
+    <a href="#contact">contact</a>
+  </nav>
+
+  <header class="hero">
+    <svg class="hero-chart" viewBox="0 0 600 300" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      <rect class="bar" x="40" y="190" width="38" height="110"/><rect class="bar" x="100" y="150" width="38" height="150"/>
+      <rect class="bar" x="160" y="170" width="38" height="130"/><rect class="bar" x="220" y="110" width="38" height="190"/>
+      <rect class="bar" x="280" y="130" width="38" height="170"/><rect class="bar" x="340" y="80" width="38" height="220"/>
+      <rect class="bar" x="400" y="100" width="38" height="200"/><rect class="bar" x="460" y="50" width="38" height="250"/>
+      <polyline class="ln" points="59,170 119,130 179,150 239,90 299,110 359,60 419,80 479,30"/>
+    </svg>
+    <div>
+      <div class="eyebrow">Data Analyst · Fresher</div>
+      <h1>Ramesh M</h1>
+      <p class="lede">M.Sc. Computer Science student who cleans messy datasets, queries them with SQL and turns them into Power BI dashboards that people can read at a glance.</p>
+      <div class="actions">
+        <a class="btn primary" href="#projects">See my projects</a>
+        <a class="btn" href="https://linkedin.com/in/ramesh-m-8220aa279" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn" href="#contact">Contact</a>
+      </div>
+    </div>
+    <div class="query" aria-label="Profile summary">
+      <div class="sql"><b>SELECT</b> * <b>FROM</b> ramesh <b>WHERE</b> open_to = 'data analyst';</div>
+      <div class="rows">
+        <span>role</span><span>Data Analyst (entry level)</span>
+        <span>degree</span><span>M.Sc. Computer Science, 2026</span>
+        <span>tools</span><span>Python, SQL, Power BI, R</span>
+        <span>focus</span><span>Cleaning, EDA, dashboards</span>
+        <span>internship</span><span>Data Science, TechVolt</span>
+      </div>
+    </div>
+  </header>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="content">
+      <article>
+        <h3>Sales &amp; Profit Analytics Dashboard</h3>
+        <p class="meta">Power BI · DAX · Power Query</p>
+        <ul class="points">
+          <li>Built an interactive Power BI dashboard covering profit by segment, product, region and month, with slicers for payment method and product.</li>
+          <li>Cleaned and shaped the data in Power Query, then wrote DAX measures for the KPIs, charts and trend views.</li>
+          <li>Surfaced the business insights a manager would need to make decisions from the data.</li>
+        </ul>
+        <figure class="shot">
+          <img src="dashboard.jpg" alt="Sales Dashboard in Power BI showing total profit gauge, profit by segment pie chart, profit by product bars, a regional map, profit by month area chart and payment method and product slicers">
+          <figcaption>Sales Dashboard, built in Power BI</figcaption>
+        </figure>
+        <ul class="findings">
+          <li><b>$61K</b>total profit across the year</li>
+          <li><b>April</b>highest month at $9,151 (15.07% of profit)</li>
+          <li><b>November</b>lowest month at $711</li>
+          <li><b>3 segments</b>Corporate, Consumer, Home Office, each about a third</li>
+        </ul>
+        <ul class="tags"><li>Power BI</li><li>DAX</li><li>Power Query</li><li>Data Visualization</li><li>Data Analysis</li></ul>
+      </article>
+      <article>
+        <h3>Hybrid Lung Cancer Prediction System</h3>
+        <p class="meta">Python · Machine Learning · Deep Learning</p>
+        <ul class="points">
+          <li>Combined deep learning models on lung scan images with machine learning algorithms on patient health attributes.</li>
+          <li>Improved prediction accuracy by using image-based and data-driven analysis together.</li>
+          <li>Designed to support early diagnosis and healthcare decision-making.</li>
+        </ul>
+        <ul class="tags"><li>Python</li><li>Machine Learning</li><li>Deep Learning</li></ul>
+      </article>
+    </div>
+  </section>
+
+  <section id="skills">
+    <h2>Skills</h2>
+    <div class="content">
+      <div class="skills">
+        <div><h3>Languages</h3><ul><li>Python</li><li>SQL (MySQL)</li><li>R</li></ul></div>
+        <div><h3>BI &amp; Visualization</h3><ul><li>Power BI</li><li>DAX &amp; Power Query</li><li>Data Visualization</li></ul></div>
+        <div><h3>Data Work</h3><ul><li>Data Cleaning</li><li>Data Preprocessing</li><li>Exploratory Analysis</li><li>Machine Learning (basic)</li></ul></div>
+        <div><h3>Working Style</h3><ul><li>Problem Solving</li><li>Analytical Thinking</li><li>Team Collaboration</li><li>Quick Learning</li><li>Communication</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <h2>Experience</h2>
+    <div class="content">
+      <article>
+        <h3>Data Science Intern</h3>
+        <p class="meta">TechVolt Software Pvt. Ltd., Coimbatore · 15 days</p>
+        <ul class="points">
+          <li>Practised data analysis and data preprocessing on industry datasets with industry-standard tools.</li>
+          <li>Gained hands-on exposure to machine learning concepts and the full data workflow.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section id="education">
+    <h2>Education</h2>
+    <div class="content">
+      <div class="edu">
+        <div class="row"><strong>M.Sc. Computer Science</strong><span class="cgpa">2024 – 2026 · CGPA 7.93</span></div>
+        <div>Sri S. Ramasamy Naidu Memorial College, Sattur</div>
+      </div>
+      <div class="edu">
+        <div class="row"><strong>B.Sc. Computer Science</strong><span class="cgpa">2021 – 2024 · CGPA 8.29</span></div>
+        <div>Sri S. Ramasamy Naidu Memorial College, Sattur</div>
+      </div>
+      <div>
+        <h3 style="font-size:16px">Certifications</h3>
+        <ul class="points">
+          <li>NPTEL – Problem Solving Through Programming in C</li>
+          <li>Data Science – Reliance Foundation Skilling Academy</li>
+          <li>Introduction to MongoDB – ICT Academy</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <div class="content">
+      <p style="margin:0;max-width:52ch">I am looking for an entry-level Data Analyst role. If you have an opening or a dataset problem, I would like to hear about it.</p>
+      <div class="contact-list">
+        <div><span class="k">email</span><span class="v" id="email-text">ramesh4452007@gmail.com</span><button class="copy" type="button" id="copy-email">Copy</button></div>
+        <div><span class="k">phone</span><span class="v">+91 9360204452</span></div>
+        <div><span class="k">linkedin</span><a class="v" href="https://linkedin.com/in/ramesh-m-8220aa279" target="_blank" rel="noopener">linkedin.com/in/ramesh-m-8220aa279</a></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>Ramesh M · Data Analyst portfolio</footer>
+</div>
+
+<script>
+(function(){
+  var btn=document.getElementById('copy-email'), txt=document.getElementById('email-text');
+  function selectText(){
+    try{var r=document.createRange();r.selectNodeContents(txt);var s=window.getSelection();s.removeAllRanges();s.addRange(r);}catch(e){}
+  }
+  btn.addEventListener('click',function(){
+    var done=function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},1800)};
+    try{
+      navigator.clipboard.writeText(txt.textContent.trim()).then(done,function(){selectText();btn.textContent='Selected'});
+    }catch(e){selectText();btn.textContent='Selected'}
+  });
+})();
+</script>
+
+</body></html>
